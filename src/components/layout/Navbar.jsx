@@ -19,6 +19,8 @@ import {
   ModalFooter,
   Tooltip,
 } from "@chakra-ui/react";
+import {Image} from "@chakra-ui/react";
+import logo from "../../../logo.png"
 import {Icon} from "@chakra-ui/react";
 import {RiLogoutCircleLine} from "react-icons/ri";
 import {
