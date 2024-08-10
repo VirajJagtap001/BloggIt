@@ -76,7 +76,7 @@ export default function Navbar() {
                   textDecoration: "none",
                 }}
               >
-                Logo
+                <Image src={logo} alt="Logo" height="40px" />
               </Link>
             </Box>
 
