@@ -11,33 +11,68 @@ import {
   Text,
   Textarea,
   useColorModeValue,
-  FormHelperText,
   useToast,
+  FormHelperText,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import TextareaAutosize from "react-textarea-autosize";
-import {useForm} from "react-hook-form";
-import {useAddPost} from "../../hooks/posts";
-import {useAuth} from "../../hooks/auths";
-export default function SimpleCard({onModalClose}) {
-  const {addPost, isLoading} = useAddPost();
-  const {user, authLoading} = useAuth();
+import { useForm } from "react-hook-form";
+import { useAddPost } from "../../hooks/posts";
+import { useAuth } from "../../hooks/auths";
+import { useState } from "react";
+
+export default function SimpleCard({ onModalClose }) {
+  const { addPost, isLoading } = useAddPost();
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
-    formState: {errors},
+    formState: { errors },
+    setValue,
   } = useForm();
   const toast = useToast();
 
-  const handleAddPost = data => {
-    addPost({
+  // State to store the base64 image
+  const [imageBase64, setImageBase64] = useState(null);
+
+  const handleAddPost = async (data) => {
+    // Check for image file and convert to base64
+    if (!imageBase64) {
+      toast({
+        title: "Image is required",
+        status: "error",
+        isClosable: true,
+        position: "top",
+        duration: 3000,
+      });
+      return;
+    }
+
+    // Submit the post with base64 image
+    await addPost({
       uid: user.id,
       title: data.title,
       desc: data.desc,
-      imageUrl: data.imageUrl,
+      imageUrl: imageBase64,
     });
     reset();
     onModalClose();
+  };
+
+  // Function to handle image upload and convert it to base64
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageBase64(reader.result);
+        setValue("image", reader.result); // Update react-hook-form state
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImageBase64(null);
+    }
   };
 
   return (
@@ -54,50 +89,53 @@ export default function SimpleCard({onModalClose}) {
         >
           <Stack>
             <form onSubmit={handleSubmit(handleAddPost)}>
-              <FormControl id='title'>
+              <FormControl id="title" isInvalid={errors.title}>
                 <FormLabel>Blog Title</FormLabel>
                 <Input
-                  type='text'
-                  {...register("title", {required: true, maxLength: 120})}
+                  type="text"
+                  {...register("title", {
+                    required: "Title is required",
+                    maxLength: {
+                      value: 120,
+                      message: "Title must be less than 120 characters",
+                    },
+                  })}
                 />
-                <FormHelperText>
-                  Eg: The Art of Effective Communication
-                </FormHelperText>
+                {errors.title && (
+                  <FormErrorMessage>{errors.title.message}</FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl id='image'>
-                <FormLabel> Image URL</FormLabel>
-                <Input type='url' {...register("imageUrl", {required: true})} />
-                <FormHelperText>
-                  <Link
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        "https://picsum.photos/200/300/"
-                      );
-                      toast({
-                        title: "URL Copied",
-                        status: "success",
-                        isClosable: true,
-                        position: "top",
-                        duration: 2000,
-                      });
-                    }}
-                  >
-                    Eg: https://picsum.photos/200/300/
-                  </Link>
-                  <div>
-                    <Text as='mark'>Copy image link by click</Text>
-                  </div>
-                </FormHelperText>
+
+              {/* File Input for Image */}
+              <FormControl id="image" isInvalid={errors.image}>
+                <FormLabel>Upload Image</FormLabel>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+                {errors.image && (
+                  <FormErrorMessage>{errors.image.message}</FormErrorMessage>
+                )}
+                {!imageBase64 && (
+                  <FormHelperText>Image is required for the post.</FormHelperText>
+                )}
               </FormControl>
-              <FormControl id='desc'>
-                <FormLabel> Description</FormLabel>
+
+              <FormControl id="desc" isInvalid={errors.desc}>
+                <FormLabel>Description</FormLabel>
                 <Textarea
                   placeholder='I know writing can be tough, Just type "blah blah blah" to test things out!'
                   as={TextareaAutosize}
                   minRows={5}
                   resize={"none"}
-                  {...register("desc", {required: true})}
+                  {...register("desc", {
+                    required: "Description is required",
+                  })}
                 />
+                {errors.desc && (
+                  <FormErrorMessage>{errors.desc.message}</FormErrorMessage>
+                )}
               </FormControl>
               <Stack spacing={10}>
                 <Button
@@ -107,7 +145,7 @@ export default function SimpleCard({onModalClose}) {
                   _hover={{
                     bg: "blue.500",
                   }}
-                  type='submit'
+                  type="submit"
                   isLoading={isLoading}
                   loadingText={"Loading..."}
                 >

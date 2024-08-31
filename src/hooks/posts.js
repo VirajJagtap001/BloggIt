@@ -8,27 +8,9 @@ export function useAddPost() {
     const [isLoading, setLoading] = useState(false);
     const toast = useToast();
 
-    async function convertToBase64(url) {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
-        });
-    }
-
-
     async function addPost(post) {
         setLoading(true);
         const id = uuidv4();
-
-        let imageBase64 = '';
-        if (post.imageUrl) {
-            imageBase64 = await convertToBase64(post.imageUrl);
-        }
-        post.imageUrl=imageBase64;
 
         await setDoc(doc(db, "posts", id), {
             ...post,
