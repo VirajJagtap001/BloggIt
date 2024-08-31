@@ -33,11 +33,9 @@ export default function SimpleCard({ onModalClose }) {
   } = useForm();
   const toast = useToast();
 
-  // State to store the base64 image
   const [imageBase64, setImageBase64] = useState(null);
 
   const handleAddPost = async (data) => {
-    // Check for image file and convert to base64
     if (!imageBase64) {
       toast({
         title: "Image is required",
@@ -49,7 +47,6 @@ export default function SimpleCard({ onModalClose }) {
       return;
     }
 
-    // Submit the post with base64 image
     await addPost({
       uid: user.id,
       title: data.title,
@@ -60,14 +57,13 @@ export default function SimpleCard({ onModalClose }) {
     onModalClose();
   };
 
-  // Function to handle image upload and convert it to base64
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageBase64(reader.result);
-        setValue("image", reader.result); // Update react-hook-form state
+        setValue("image", reader.result);
       };
       reader.readAsDataURL(file);
     } else {
@@ -106,7 +102,6 @@ export default function SimpleCard({ onModalClose }) {
                 )}
               </FormControl>
 
-              {/* File Input for Image */}
               <FormControl id="image" isInvalid={errors.image}>
                 <FormLabel>Upload Image</FormLabel>
                 <Input
