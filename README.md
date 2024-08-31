@@ -48,12 +48,16 @@ To run this project, you need to create a keys.js file in the root directory of 
 
    export const apiKey = "YOUR_FIREBASE_API_KEY"
 
-   export const apiKey = "YOUR_FIREBASE_API_KEY"
    export const authDomain = "YOUR_FIREBASE_AUTH_DOMAIN"
+
    export const projectId = "YOUR_PROJECT_ID"
+
    export const storageBucket = "YOUR_STORAGEBUCKET"
+
    export const messagingSenderId = "YOUR_MESSAGING_SENDER_ID"
+
    export const appId = "YOUR_APP_ID"
+   
    export const measurementId = "YOUR_MEASUREMENT_ID"
 
 
