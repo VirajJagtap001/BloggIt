@@ -15,8 +15,8 @@ This is a React-based blog app that lets users create, like, and delete posts. T
 
 You can access posts without logging in, but to create your own posts, you need to login or create an account. If you would like to try out the feature, you can use the following user credentials:
 
-testuser@mail.com
-123456
+viraj@gmail.com
+12345678
 
 ### Register
 
@@ -41,17 +41,26 @@ By clicking on the 'Add Post' button, users can access a modal that allows them 
 
 ## Setting up the project
 
-To run this project, you need to create a keys.js file in the root directory of the project and add your Firebase API key to it.
+To run this project, you need to create a keys.js file in the root directory of the project and add your Firebase details to it.
 
 1. Create a file named keys.js in the root directory of the project.
 2. Open the keys.js file and add the following code:
 
    export const apiKey = "YOUR_FIREBASE_API_KEY"
 
-3. Replace YOUR_FIREBASE_API_KEY with your actual Firebase API key.
+   export const apiKey = "YOUR_FIREBASE_API_KEY"
+   export const authDomain = "YOUR_FIREBASE_AUTH_DOMAIN"
+   export const projectId = "YOUR_PROJECT_ID"
+   export const storageBucket = "YOUR_STORAGEBUCKET"
+   export const messagingSenderId = "YOUR_MESSAGING_SENDER_ID"
+   export const appId = "YOUR_APP_ID"
+   export const measurementId = "YOUR_MEASUREMENT_ID"
+
+
+3. Replace the names with your actual Firebase details.
 4. Save the keys.js file.
 
-Once you have created the keys.js file and added your Firebase API key to it, you can run the project.
+Once you have created the keys.js file and added your Firebase details to it, you can run the project.
 
 ## Here are some common commands
 
@@ -59,6 +68,6 @@ Once you have created the keys.js file and added your Firebase API key to it, yo
 2. npm run dev: Runs the app in development mode.
 3. npm run build: Builds the app for production to the build folder.
 
-# Live
+<!-- # Live -->
 
 <!-- https://live-react-blog-app.netlify.app/ -->

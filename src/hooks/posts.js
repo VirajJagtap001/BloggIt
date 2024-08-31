@@ -8,10 +8,6 @@ export function useAddPost() {
     const [isLoading, setLoading] = useState(false);
     const toast = useToast();
 
-        //hit url 
-        //url to base 64 +prefix
-        //i
-
     async function convertToBase64(url) {
         const response = await fetch(url);
         const blob = await response.blob();
