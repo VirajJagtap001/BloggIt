@@ -72,6 +72,6 @@ Once you have created the .env file and added your Firebase details to it, you c
 2. npm run dev: Runs the app in development mode.
 3. npm run build: Builds the app for production to the build folder.
 
-<!-- # Live -->
+## Live
 
-<!-- https://live-react-blog-app.netlify.app/ -->
+https://blogg-it.netlify.app/
