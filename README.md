@@ -41,30 +41,30 @@ By clicking on the 'Add Post' button, users can access a modal that allows them 
 
 ## Setting up the project
 
-To run this project, you need to create a keys.js file in the root directory of the project and add your Firebase details to it.
+To run this project, you need to create a .env file in the root directory of the project and add your Firebase details to it.
 
-1. Create a file named keys.js in the root directory of the project.
-2. Open the keys.js file and add the following code:
+1. Create a file named .env in the root directory of the project.
+2. Open the .env file and add the following code:
 
-   export const apiKey = "YOUR_FIREBASE_API_KEY"
+   VITE_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY
 
-   export const authDomain = "YOUR_FIREBASE_AUTH_DOMAIN"
+   VITE_FIREBASE_AUTH_DOMAIN=YOUR_FIREBASE_AUTH_DOMAIN
 
-   export const projectId = "YOUR_PROJECT_ID"
+   VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
 
-   export const storageBucket = "YOUR_STORAGEBUCKET"
+   VITE_FIREBASE_STORAGE_BUCKET=YOUR_STORAGEBUCKET
 
-   export const messagingSenderId = "YOUR_MESSAGING_SENDER_ID"
+   VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_MESSAGING_SENDER_ID
 
-   export const appId = "YOUR_APP_ID"
-   
-   export const measurementId = "YOUR_MEASUREMENT_ID"
+   VITE_FIREBASE_APP_ID=YOUR_APP_ID
+
+   VITE_FIREBASE_MEASUREMENT_ID=YOUR_MEASUREMENT_ID
 
 
 3. Replace the names with your actual Firebase details.
-4. Save the keys.js file.
+4. Save the .env file.
 
-Once you have created the keys.js file and added your Firebase details to it, you can run the project.
+Once you have created the .env file and added your Firebase details to it, you can run the project.
 
 ## Here are some common commands
 
