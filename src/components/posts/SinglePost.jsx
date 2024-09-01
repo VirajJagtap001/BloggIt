@@ -12,7 +12,7 @@ import {
 import {useAuth} from "../../hooks/auths";
 import {formatDistanceToNow} from "date-fns";
 import {AiTwotoneHeart, AiOutlineHeart, AiFillDelete} from "react-icons/ai";
-import {useDeletePost, useToggleLike} from "../../hooks/posts";
+import {useDeletePost, useToggleLike, useHandleNavigation} from "../../hooks/posts";
 import {Link as routerLink} from "react-router-dom";
 import {useUser} from "../../hooks/user";
 
@@ -26,12 +26,19 @@ const SinglePost = ({post}) => {
     uid: user?.id,
   });
   const {deletePost, isLoading: deleteLoading} = useDeletePost(id);
+  const {handleNavigation} = useHandleNavigation({id, uid: user?.id});
   const {user: users, isLoading: userLoading} = useUser(uid);
   return (
     <>
       <Box w='100%' key={post.id}>
         <Box borderRadius='lg' overflow='hidden'>
-          <Link textDecoration='none' _hover={{textDecoration: "none"}}>
+          <Link
+            textDecoration='none'
+            _hover={{textDecoration: "none"}}
+            onClick={() => handleNavigation(post.id)}
+            // as={routerLink}
+            // to={`/posts/${post?.id}`}
+          >
             <Image
               transform='scale(1.0)'
               src={post.imageUrl}
@@ -50,8 +57,9 @@ const SinglePost = ({post}) => {
           <Link
             textDecoration='none'
             _hover={{textDecoration: "none"}}
-            as={routerLink}
-            to={`/posts/${post?.id}`}
+            onClick={() => handleNavigation(post.id)}
+            // as={routerLink}
+            // to={`/posts/${post?.id}`}
           >
             {post.title}
           </Link>

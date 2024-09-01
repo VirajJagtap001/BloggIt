@@ -59,7 +59,7 @@ export default function Navbar() {
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={24} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
-            size={"md"}
+            size={"lg"}
             icon={isMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={"Open Menu"}
             display={{ md: "none" }}
@@ -101,8 +101,8 @@ export default function Navbar() {
                 <Link
                   px={4}
                   py={2}
-                  fontSize="md"
-                  rounded={"md"}
+                  fontSize="lg"
+                  rounded={"lg"}
                   _hover={{
                     textDecoration: "none",
                   }}
@@ -113,21 +113,25 @@ export default function Navbar() {
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button mr={4} onClick={toggleColorMode} size="md">
-              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            </Button>
-            {user ? (
-              <Button
-                variant={"solid"}
-                colorScheme={"teal"}
-                size={"md"}
-                fontSize="md"
-                mr={4}
-                onClick={onModalOpen}
-                leftIcon={<AddIcon />}
-              >
-                Create Post
+            <Tooltip label={ colorMode === "light" ? "Go Dark!" : "Go Light!"}>
+              <Button mr={4} onClick={toggleColorMode} size="lg">
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
+            </Tooltip>
+            {user ? (
+              <Tooltip label="Your Words, Your World - Start Blogging!">
+                <Button
+                  variant={"solid"}
+                  colorScheme={"teal"}
+                  size={"md"}
+                  fontSize="md"
+                  mr={4}
+                  onClick={onModalOpen}
+                  leftIcon={<AddIcon />}
+                >
+                  Create Post
+                </Button>
+              </Tooltip>
             ) : (
               <Tooltip label="Activate me, captain! Login required">
                 <Button
@@ -161,16 +165,18 @@ export default function Navbar() {
             </Modal>
             
             {user && (
-              <Button
-                ml="auto"
-                colorScheme="teal"
-                size="md"
-                fontSize="md"
-                onClick={logout}
-                isLoading={isLoading}
-              >
-                <Icon as={RiLogoutCircleLine} />
-              </Button>
+              <Tooltip label="Don't forget to log out before you go!">
+                <Button
+                  ml="auto"
+                  colorScheme="teal"
+                  size="md"
+                  fontSize="md"
+                  onClick={logout}
+                  isLoading={isLoading}
+                >
+                  <Icon as={RiLogoutCircleLine} />
+                </Button>
+              </Tooltip>
             )}
           </Flex>
         </Flex>
@@ -200,8 +206,8 @@ export default function Navbar() {
                 <Link
                   px={4}
                   py={2}
-                  fontSize="md"
-                  rounded={"md"}
+                  fontSize="lg"
+                  rounded={"lg"}
                   _hover={{
                     textDecoration: "none",
                   }}

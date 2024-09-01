@@ -4,6 +4,8 @@ import { arrayRemove, arrayUnion, collection, deleteDoc, doc, orderBy, query, se
 import { useState } from "react";
 import { db } from "../lib/firebase";
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
+import { useNavigate } from "react-router-dom";
+
 export function useAddPost() {
     const [isLoading, setLoading] = useState(false);
     const toast = useToast();
@@ -47,13 +49,25 @@ export function usePosts(uid = null) {
 
 export function useToggleLike({ id, isLiked, uid }) {
     const [isLoading, setLoading] = useState(false);
+    const toast = useToast();
 
     async function toggleLike() {
         setLoading(true);
-        const docRef = doc(db, "posts", id);
-        await updateDoc(docRef, {
-            likes: isLiked ? arrayRemove(uid) : arrayUnion(uid),
-        });
+        if(!uid){
+            toast({
+                title: "You need to login first!",
+                status: "info",
+                isClosable: true,
+                position: "top",
+                duration: 5000,
+            });
+        } 
+        else{
+            const docRef = doc(db, "posts", id);
+            await updateDoc(docRef, {
+                likes: isLiked ? arrayRemove(uid) : arrayUnion(uid),
+            });
+        }
         setLoading(false);
     }
 
@@ -61,6 +75,31 @@ export function useToggleLike({ id, isLiked, uid }) {
 }
 
 
+export function useHandleNavigation({ id, uid }) {
+  const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  async function handleNavigation() {
+      setLoading(true);
+      if(!uid){
+          toast({
+            title: "You need to login first!",
+            status: "info",
+            isClosable: true,
+            position: "top",
+            duration: 5000,
+          });
+          navigate(`/login`);
+      } 
+      else{
+          navigate(`/posts/${id}`);
+      }
+      setLoading(false);
+  }
+
+  return { handleNavigation, isLoading };
+}
 
 export function useDeletePost(id) {
     const [isLoading, setLoading] = useState(false);
@@ -72,7 +111,6 @@ export function useDeletePost(id) {
         if (res) {
             setLoading(true);
 
-            // Delete post document
             await deleteDoc(doc(db, "posts", id));
             toast({
                 title: "Post deleted!",

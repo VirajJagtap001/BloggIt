@@ -27,7 +27,7 @@ export default function PostList() {
 
   return (
     <Container maxW={"7xl"} p='12'>
-      <Heading as='h2' marginTop='5'>
+      <Heading as='h2' marginTop='1'>
         Latest articles
       </Heading>
       <Divider marginTop='5' />
@@ -35,6 +35,8 @@ export default function PostList() {
         templateColumns='repeat(auto-fill, minmax(300px, 2fr))'
         gap={6}
         marginTop='5'
+        marginLeft='12'
+        marginRight='12'
       >
         {posts.map(post => (
           <GridItem key={post.id}>

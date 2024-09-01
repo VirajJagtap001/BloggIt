@@ -13,7 +13,7 @@ This is a React-based blog app that lets users create, like, and delete posts. T
 
 ![login](./public/login.png)
 
-You can access posts without logging in, but to create your own posts, you need to login or create an account. If you would like to try out the feature, you can use the following user credentials:
+You can access some part of posts without logging in, but to access the full post, to create your own posts, you need to login or create an account. If you would like to try out the feature, you can use the following user credentials:
 
 viraj@gmail.com
 12345678
@@ -31,7 +31,7 @@ Upon logging in or registering, users will be directed to the homepage where the
 ### New post
 
 ![newpost](./public/create-new-post.png)
-By clicking on the 'Add Post' button, users can access a modal that allows them to create a new post with a title, description, image URL, and content.
+By clicking on the 'Add Post' button, users can access a modal that allows them to create a new post with a title, image and description.
 
 ### Others
 

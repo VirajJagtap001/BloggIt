@@ -23,7 +23,7 @@ export default function Footer() {
         justify={{base: "center", md: "space-between"}}
         align={{base: "center", md: "center"}}
       >
-        <Text>© Viraj Jagtap</Text>
+        <Text>© 2024 Viraj Jagtap</Text>
         <Stack direction={"row"} spacing={6}>
           <chakra.button
             bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
@@ -32,7 +32,7 @@ export default function Footer() {
             h={8}
             cursor={"pointer"}
             as={"a"}
-            href={"https://github.com/VirajJagtap001"}
+            href={"https://github.com/VirajJagtap001/BloggIt"}
             display={"inline-flex"}
             alignItems={"center"}
             justifyContent={"center"}
